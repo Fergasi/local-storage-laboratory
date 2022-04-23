@@ -34,7 +34,6 @@ localStorage.setItem("savedCount", savedCount);
 let listForm = document.querySelector("#list-form");
 let listInput = document.querySelector("#list-input");
 let listDisplay = document.querySelector("#saved-list");
-
 let items = localStorage.getItem("items");
 
 if (items === null) {
@@ -50,14 +49,11 @@ else {
 }
 
 listForm.addEventListener("submit", function (event) {
-    
    let newItem = listInput.value;
    items.push(newItem);
    localStorage.setItem("items", JSON.stringify(items))
-
-    let listItem = document.createElement("li");
-    listItem.innerText = newItem;
-    listDisplay.appendChild(listItem);
-    listInput.value = '';
-
+   let listItem = document.createElement("li");
+   listItem.innerText = newItem;
+   listDisplay.appendChild(listItem);
+   listInput.value = '';
 })
