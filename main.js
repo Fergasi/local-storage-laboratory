@@ -35,29 +35,29 @@ let listForm = document.querySelector("#list-form");
 let listInput = document.querySelector("#list-input");
 let listDisplay = document.querySelector("#saved-list");
 
-listForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+let items = localStorage.getItem("items");
 
-    let newItem = listInput.value;
-    let items = localStorage.getItem("items");
-    
-    if (items === null) {
-        listDisplay.innerText = "";
-        items = [newItem];
-        localStorage.setItem("items", JSON.stringify(items))
-    }
-    else {
-        items = JSON.parse(items);
-        items.push(newItem);
-        localStorage.setItem("items", JSON.stringify(items))
-    }
-    for (let list of items) {
+if (items === null) {
+    items = [];
+}
+else {
+    items = JSON.parse(items);
+    for (let i = 0; i < items.length; i++){
         let listItem = document.createElement("li");
-        listItem.innerText = list;
+        listItem.innerText = items[i];
         listDisplay.appendChild(listItem);
-        listInput.value = '';
     }
+}
 
+listForm.addEventListener("submit", function (event) {
+    
+   let newItem = listInput.value;
+   items.push(newItem);
+   localStorage.setItem("items", JSON.stringify(items))
 
+    let listItem = document.createElement("li");
+    listItem.innerText = newItem;
+    listDisplay.appendChild(listItem);
+    listInput.value = '';
 
 })
